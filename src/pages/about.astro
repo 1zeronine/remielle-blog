@@ -1,0 +1,20 @@
+---
+import { AUTHOR } from '../consts';
+import Layout from '../layouts/BlogPost.astro';
+---
+
+<Layout title="关于" description={`关于 ${AUTHOR} 和这个博客`}>
+	<p>你好，我是 {AUTHOR}。</p>
+	<p>
+		这里是我的个人博客，主要记录编程、折腾服务器和日常生活中的一些心得。（这段文字在
+		<code>src/pages/about.astro</code> 中修改。）
+	</p>
+	<h2>关于本站</h2>
+	<ul>
+		<li>使用 <a href="https://astro.build/" target="_blank" rel="noopener">Astro</a> 生成静态页面。</li>
+		<li>托管在 Cloudflare Pages，推送到 GitHub 后自动更新。</li>
+		<li>可以通过 <a href="/rss.xml">RSS</a> 订阅更新。</li>
+	</ul>
+	<h2>联系方式</h2>
+	<p>欢迎通过页面底部的链接与我联系。</p>
+</Layout>

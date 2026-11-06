@@ -1,0 +1,33 @@
+---
+import PostList from '../../components/PostList.astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getPosts, type Post } from '../../utils/posts';
+
+const posts = await getPosts();
+
+// 按年份分组
+const byYear = new Map<number, Post[]>();
+for (const post of posts) {
+	const year = post.data.pubDate.getFullYear();
+	byYear.set(year, [...(byYear.get(year) ?? []), post]);
+}
+---
+
+<BaseLayout title="全部文章" description={`共 ${posts.length} 篇文章`}>
+	<h1>全部文章</h1>
+	<p class="count">共 {posts.length} 篇</p>
+	{
+		[...byYear.entries()].map(([year, list]) => (
+			<section>
+				<h2 class="section-title">{year}</h2>
+				<PostList posts={list} />
+			</section>
+		))
+	}
+	{posts.length === 0 && <p>还没有文章。</p>}
+</BaseLayout>
+<style>
+	.count {
+		color: var(--text-muted);
+	}
+</style>

@@ -1,0 +1,50 @@
+---
+import { AUTHOR, SOCIAL_LINKS } from '../consts';
+import Icon from './Icon.astro';
+
+const today = new Date();
+const links = SOCIAL_LINKS.filter((link) => link.href);
+---
+
+<footer>
+	<div class="social-links">
+		{
+			links.map((link) => (
+				<a href={link.href} title={link.label} target={link.href.startsWith('http') ? '_blank' : undefined} rel="noopener">
+					<span class="sr-only">{link.label}</span>
+					<Icon name={link.icon} />
+				</a>
+			))
+		}
+	</div>
+	<p>&copy; {today.getFullYear()} {AUTHOR} · 由 <a href="https://astro.build/" target="_blank" rel="noopener">Astro</a> 构建，托管于 <a href="https://pages.cloudflare.com/" target="_blank" rel="noopener">Cloudflare Pages</a></p>
+</footer>
+<style>
+	footer {
+		margin-top: 4em;
+		padding: 2em 1em 3em;
+		border-top: 1px solid var(--border);
+		color: var(--text-muted);
+		text-align: center;
+		font-size: 0.875rem;
+	}
+	footer p {
+		margin: 0;
+	}
+	footer a {
+		color: inherit;
+	}
+	.social-links {
+		display: flex;
+		justify-content: center;
+		gap: 1em;
+		margin-bottom: 1em;
+	}
+	.social-links a {
+		display: flex;
+		color: var(--text-muted);
+	}
+	.social-links a:hover {
+		color: var(--accent);
+	}
+</style>
